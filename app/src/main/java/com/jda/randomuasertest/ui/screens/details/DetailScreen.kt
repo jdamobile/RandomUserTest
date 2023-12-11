@@ -31,7 +31,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.jda.randomuasertest.R
 import com.jda.randomuasertest.data.toDecodedString
@@ -68,7 +67,6 @@ fun DetailScreen(
         )
         MainAppBar(color = Color.White, title = name, onBackPressed = onBackPressed)
     }
-
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
