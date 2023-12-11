@@ -1,14 +1,15 @@
-package com.jda.randomuasertest.data.network.model
+package com.jda.randomuasertest.data.remote.dto
 
+import com.google.gson.annotations.SerializedName
 import com.jda.randomuasertest.domain.model.RandomUser
 import com.jda.randomuasertest.domain.model.UserLocation
 
-data class Results(
-    val info: Info,
-    val results: List<Result>
+data class ResultsDTO(
+    @SerializedName("info") val info: InfoDTO,
+    @SerializedName("results") val results: List<ResultDTO>
 )
 
-fun Results.asDomainModel(): List<RandomUser> =
+fun ResultsDTO.asDomainModel(): List<RandomUser> =
     results.map {
         RandomUser(
             id = it.id.name,
@@ -28,7 +29,7 @@ private fun String.toDateFormat() =
         missingDelimiterValue = "T not found"
     ).replace("-", "/")
 
-fun Location.toUserLocation() =
+fun LocationDTO.toUserLocation() =
     UserLocation(
         latitude = this.coordinates.latitude,
         longitude = this.coordinates.longitude

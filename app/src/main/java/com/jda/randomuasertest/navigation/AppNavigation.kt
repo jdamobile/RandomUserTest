@@ -3,20 +3,11 @@ package com.jda.randomuasertest.navigation
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.jda.randomuasertest.data.network.UserApiServiceFactory
-import com.jda.randomuasertest.data.network.model.asDomainModel
-import com.jda.randomuasertest.domain.model.toSimpleUser
-import com.jda.randomuasertest.ui.entities.User
 import com.jda.randomuasertest.ui.screens.details.DetailScreen
 import com.jda.randomuasertest.ui.screens.main.MainScreen
 
@@ -24,15 +15,7 @@ import com.jda.randomuasertest.ui.screens.main.MainScreen
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    val service = UserApiServiceFactory.makeUserApiService()
-    var usersState by rememberSaveable { mutableStateOf(emptyList<User>()) }
 
-    LaunchedEffect(Unit) {
-        usersState = service.getUsersList(100)
-            .asDomainModel().map {
-                it.toSimpleUser()
-            }
-    }
     NavHost(
         navController = navController,
         startDestination = NavItem.Main.route
@@ -52,8 +35,7 @@ fun Navigation() {
                                 it.longitude
                             )
                     )
-                },
-                users = usersState
+                }
             )
         }
         composable(NavItem.Detail) {backStackEntry ->
