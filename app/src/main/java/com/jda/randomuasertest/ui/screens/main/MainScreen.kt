@@ -10,8 +10,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,7 +27,7 @@ fun MainScreen(
     val eventFlow = viewModel.eventFlow
     val snackBarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(key1 = true ) {
+    LaunchedEffect(key1 = true) {
         eventFlow.collectLatest { event ->
             when (event) {
                 is MainViewModel.UIEvent.ShowSnackBar -> {
@@ -51,14 +49,29 @@ fun MainScreen(
             }
         } else {
             Scaffold(
-                topBar = { MainAppBar(title = "CONTACTOS", onBackPressed = { }) },
+                topBar = {
+                    if (state.isSearchBarVisible) {
+                        SearchAppBar(
+                            onCloseClick = { viewModel.onActions(MainViewModel.UIActions.CloseSearchBar) },
+                            searchText = state.searchText,
+                            onTextChange = { input ->
+                                viewModel.onActions(MainViewModel.UIActions.SearchInputChange(input))
+                            },
+                            onClearClick = {viewModel.onActions(MainViewModel.UIActions.ClearSearchBar)}
+                        )
+                    } else {
+                        MainAppBar(
+                            title = "CONTACTOS",
+                            onBackPressed = { },
+                            onSearchClick = { viewModel.onActions(MainViewModel.UIActions.ShowSearchBar) })
+                    }
+                },
                 snackbarHost = { SnackbarHost(snackBarHostState) }
             ) { padding ->
                 UserList(
                     onUserClick = onItemClick,
                     modifier = Modifier.padding(padding),
                     users = state.users,
-                    viewModel = viewModel
                 )
             }
         }

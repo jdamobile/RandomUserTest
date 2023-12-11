@@ -66,13 +66,24 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
     implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+
+    // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("io.coil-kt:coil-compose:2.0.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    // Coil Compose
+    implementation("io.coil-kt:coil-compose:2.0.0")
+
+    // Hilt
     implementation("com.google.dagger:hilt-android:2.49")
     kapt ("com.google.dagger:hilt-android-compiler:2.49")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    // Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("androidx.paging:paging-compose:3.2.1")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

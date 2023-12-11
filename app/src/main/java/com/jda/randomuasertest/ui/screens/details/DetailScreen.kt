@@ -65,7 +65,7 @@ fun DetailScreen(
             latitude = latitude,
             longitude = longitude
         )
-        MainAppBar(color = Color.White, title = name, onBackPressed = onBackPressed)
+        MainAppBar(color = Color.White, title = name, onBackPressed = onBackPressed, onSearchClick = {})
     }
 }
 

@@ -1,5 +1,7 @@
 package com.jda.randomuasertest.ui.screens.main
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -16,7 +18,7 @@ import com.jda.randomuasertest.ui.theme.Oswald
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainAppBar(color: Color = Color.Black, title: String, onBackPressed: () -> Unit) {
+fun MainAppBar(color: Color = Color.Black, title: String, onBackPressed: () -> Unit, onSearchClick: () -> Unit) {
     TopAppBar(
         title = {
             Text(
@@ -38,7 +40,8 @@ fun MainAppBar(color: Color = Color.Black, title: String, onBackPressed: () -> U
         actions = {
             AppBarAction(
                 resource = painterResource(id = R.drawable.ic_more_options),
-                onClick = { /*TODO*/ },
+                onMoreOptionsClick = { /*TODO*/ },
+                onSearchClick = onSearchClick,
                 contentDescription = "more options",
                 color = color
             )
@@ -50,11 +53,15 @@ fun MainAppBar(color: Color = Color.Black, title: String, onBackPressed: () -> U
 @Composable
 private fun AppBarAction(
     resource: Painter,
-    onClick: () -> Unit,
+    onMoreOptionsClick: () -> Unit,
+    onSearchClick: () -> Unit,
     contentDescription: String,
     color: Color
 ) {
-    IconButton(onClick = onClick) {
+    IconButton(onClick = onSearchClick) {
+        Icon(imageVector = Icons.Default.Search, contentDescription = "search")
+    }
+    IconButton(onClick = onMoreOptionsClick) {
         Icon(
             painter = resource,
             contentDescription = contentDescription,
